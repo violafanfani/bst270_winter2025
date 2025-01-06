@@ -1,0 +1,73 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+## Introduction
+In this Rmarkdown file we will attempt to reproduce the figures, tables and analyses presented in the paper [_Relation between Optimism and Lipids in Midlife_.](https://www.ajconline.org/article/S0002-9149(13)00388-3/pdf)
+
+1. Boehm, J. K., Williams, D. R., Rimm, E. B., Ryff, C., & Kubzansky, L. D. (2013). Relation between Optimism and Lipids in Midlife. The American Journal of Cardiology, 111(10), 1425-1431.
+http://doi.org/10.1016/j.amjcard.2013.01.292
+
+In 1995, MIDUS survey data were collected from a total of 7,108 participants. The baseline sample was comprised of individuals from four subsamples: (1) a national RDD (random digit dialing) sample ($n = 3,487$); (2) oversamples from five metropolitan areas in the U.S. ($n = 757$); (3) siblings of individuals from the RDD sample ($n = 950$); and (4) a national RDD sample of twin pairs ($n = 1,914$). All eligible participants were non-institutionalized, English-speaking adults in the contiguous United States, aged 25 to 74. All respondents were invited to participate in a phone interview of approximately 30 minutes in length and complete 2 self-administered questionnaires (SAQs), each of approximately 45 pages in length. In addition, the twin subsample was administered a short screener to assess zygosity and other twin-specific information. With funding provided by the National Institute on Aging, a longitudinal follow-up of MIDUS I began in 2004. Every attempt was made to contact all original respondents and invite them to participate in a second wave of data collection. Of the 7,108 participants in MIDUS I, 4,963 were successfully contacted to participate in another phone interview of about 30 minutes in length. MIDUS II also included two self-administered questionnaires (SAQs), each of about 55 pages in length, which were mailed to participants. The overall response rate for the SAQs was 81\%. Over 1,000 journal articles have been written using MIDUS I and II data since 1995.
+
+Here we attempt to reproduce the findings of [1] and critique the reproducibility of the article. This particular article focuses only on MIDUS II data, including biomarker data, and investigates the relationship between optimism and lipids. The MIDUS II data and supporting codebook and other documents can be downloaded \href{https://www.icpsr.umich.edu/icpsrweb/ICPSR/studies/4652?archive=ICPSR&q=MIDUS+}{here}. The data can be downloaded in multiple formats. Here we use the R data files and perform all data cleaning and analyses in R version 3.5.1. The biomarker data can be downloaded \href{https://www.icpsr.umich.edu/icpsrweb/NACDA/studies/29282}{here}.
+
+## Data Dictionary
+This manuscript uses several variables from multiple data files. Some of these variables don't have intuitive names and need to be manually looked up either online or in the codebooks provided in the data downloads. We generated a data dictionary to our understanding of the naming conventions.
+
+# Load packages
+```{r, message=FALSE, warning=FALSE}
+library(dplyr)
+library(tidyverse)
+library(ggplot2)
+```
+
+First we load the data. 29282-0001-Data contains the analysis associated data, 
+while 04652-0001-Data contains the midus clinical data
+```{r}
+getwd()
+load('midus_data_icpsr_29282_20221222/DS0001/29282-0001-Data.rda')
+load('midus_data_icpsr_04652_20221222/DS0001/04652-0001-Data.rda')
+```
+
+Here are the columns of interest
+```{r}
+optimism_columns = c('B1SE10F', 'B1SE10D', 'B1SE10B', 'B1SE10E', 'B1SE10C', 'B1SE10A')
+group1_columns = c('B1SE10F', 'B1SE10D', 'B1SE10B', 'B1SE10E', 'B1SE10C', 'B1SE10A','B4BCHOL','B4BHDL','B4BLDL','B4BTRIGL','B1PAGE_M2','B1PRSEX','B1PF7A')
+
+group1_columns = c('B1SORIEN','B4BCHOL','B4BHDL','B4BLDL','B4BTRIGL','B1PAGE_M2','B1PRSEX','B1PF7A')
+group2_columns = c('B1PB1','B1STINC1','B4ZB1SLG','B1SCHROX','B4H26','B4H33','B4H25','B4PBMI','B1SNEGAF')
+group3_columns = c('B4H21','B4H22','B4H23A','B4H23C','B4H20','B4H23B','B4H24')
+
+all_columns = c(group1_columns, group2_columns, group3_columns)
+```
+'B1PA24B', 'B4H26A', 'B4H36'
+We have to merge the two tables based on the MIDUS II ID number
+
+```{r}
+data = inner_join(da04652.0001, da29282.0001, by = c("M2ID", "M2FAMNUM"),suffix = c('','.2'))
+```
+
+```{r}
+data_oi = data %>% select(all_columns)
+nrow(data_oi %>% drop_na())
+```
+
+
+First, we attempt to reproduce Figure 1. 
+Figure 1 shows the frequency distribution of 990 optimism scores 
+(mean +- SD: 23.05 +- 4.69), 
+with black representing the lowest tertile of optimism (6 to 22), 
+gray, middle tertile of optimism (23 to 26), 
+and white, highest tertile of optimism (27 to 30)
+
+Optimism scores are in the 29282-0001-Data object, 
+
+
+```{r}
+
+nrow(data_oi %>% drop_na())
+
+```

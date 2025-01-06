@@ -1,0 +1,278 @@
+---
+title: "Markdown and R Markdown Tutorial"
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+## Markdown
+
+Markdown is a way to write content for the web. It's written in what nerds like to call "plaintext", which is exactly the sort of text you're used to writing and seeing. Plaintext is just the regular alphabet, with a few familiar symbols, like asterisks ( `*` ) and backticks ( ` ` ` ).
+
+Unlike cumbersome word processing applications, text written in Markdown can be easily shared between computers, mobile phones, and people. It's quickly becoming the writing standard for academics, scientists, writers, and many more. Websites like GitHub and reddit use Markdown to style their comments.
+
+Formatting text in Markdown has a very gentle learning curve. It doesn't do anything fancy like change the font size, color, or type. All you have control over is the display of the text-stuff like making things bold, creating headers, and organizing lists.
+
+If you have ten minutes, you can learn Markdown!
+
+### Italics and Bold
+
+To make a phrase italic in Markdown, you can surround words with an underscore (`_`). For example, _this_ word would become italic.
+
+Similarly, to make phrases bold in Markdown, you can surround words with two asterisks ( `**` ). This will **really** get your point across.
+
+Of course, you can use _both italics and bold_ in the same line. You can also span them **across multiple words**.
+
+In general, it doesn't matter which order you place the asterisks or underscores. I prefer to place the asterisks on the outside to make it **_easier to read_**.
+
+### Headers
+
+Headers are frequently used on websites, magazine articles, and notices, to draw attention to a section. As their name implies, they act like titles or subtitles above sections.
+
+There are six types of headers, in decreasing sizes:
+
+# Header one
+## Header two
+### Header three
+#### Header four
+##### Header five
+###### Header six
+
+To make headers in Markdown, you preface the phrase with a hash mark (`#`). You place the same number of hash marks as the size of the header you want. For example, for a header one, you'd use one hash mark (`# Header One`), while for a header three, you'd use three (`### Header Three`). It's up to you to decide when it's appropriate to use which header. In general, headers one and six should be used sparingly.
+
+You can't really make a header bold, but you can italicize certain words. For example: 
+
+#### Colombian Symbolism in _One Hundred Years of Solitude_
+
+... whatever that is.
+
+### Links
+
+There are two different link types in Markdown, but both of them render the exact same way. The first link style is called an inline link. To create an inline link, you wrap the link text in brackets (`[ ]`), and then you wrap the link in parenthesis (`( )`). For example, to create a hyperlink to www.github.com, with a link text that says, Visit GitHub!, you'd write this in Markdown: [Visit GitHub!](www.github.com).
+
+
+You can add emphasis to link texts, if you like. You'll want to make sure that the bold phrasing occurs within the link text brackets. For example: You're [**really, really**](www.dailykitten.com) going to want to see this! 
+
+The other link type is called a reference link. As the name implies, the link is actually a reference to another place in the document. Here's an example:
+
+Here's [a link to something else][another place].
+Here's [yet another link][another-link].
+And now back to [the first link][another place].
+
+[another place]: www.github.com
+[another-link]: www.google.com
+
+The "references" above are the second set of brackets: [another place] and [another-link]. At the bottom of a Markdown document, these brackets are defined as proper links to outside websites. An advantage of the reference link style is that multiple links to the same place only need to be updated once. For example, if we decide to make all of the [another place] links go somewhere else, we only have to change the single reference link.
+
+Reference links don't appear in the rendered Markdown. You define them by providing the same tag name wrapped in brackets, followed by a colon, followed by the link.
+
+### Images
+
+If you know how to create links in Markdown, you can create images, too. The syntax is nearly the same.
+
+Images also have two styles, just like links, and both of them render the exact same way. The difference between links and images is that images are prefaced with an exclamation point (`!`).
+
+The first image style is called an _inline image link_. To create an inline image link, enter an exclamation point (`!`), wrap the alt text in brackets (`[ ]`), and then wrap the link in parenthesis (`( )`). (Alt text is a phrase or sentence that describes the image for the visually impaired.)
+
+For example, to create an inline image link to https://octodex.github.com/images/bannekat.png, with an alt text that says, Benjamin Bannekat, you'd write this in Markdown: ![Benjamin Bannekat](https://octodex.github.com/images/bannekat.png).
+
+
+Although you don't _need_ to add alt text, it will make your content accessible to your audience, including people who are visually impaired, use screen readers, or do not have high speed internet connections.
+
+For a reference image, you'll follow the same pattern as a reference link. You'll precede the Markdown with an exclamation point, then provide two brackets for the alt text, and then two more for the image tag. At the bottom of your Markdown page, you'll define an image for the tag.
+
+Here's an example: the first reference tag is called "First Father", and links to http://octodex.github.com/images/founding-father.jpg; the second image links out to http://octodex.github.com/images/foundingfather_v2.png.
+
+
+![The first father][First Father]
+
+![The second first father][Second Father]
+
+[First Father]: http://octodex.github.com/images/founding-father.jpg
+
+[Second Father]:http://octodex.github.com/images/foundingfather_v2.png
+
+
+
+### Blockquotes
+
+If you need to call special attention to a quote from another source, or design a pull quote for a magazine article, then Markdown's blockquote syntax will be useful. A blockquote is a sentence or paragraph that's been specially formatted to draw attention to the reader.
+
+To create a block quote, all you have to do is preface a line with the "greater than" caret (`>`). For example:
+
+> "In a few moments he was barefoot, his stockings folded in his pockets and his
+  canvas shoes dangling by their knotted laces over his shoulders and, picking a
+  pointed salt-eaten stick out of the jetsam among the rocks, he clambered down
+  the slope of the breakwater."
+  
+
+You can also place a caret character on each line of the quote. This is particularly useful if your quote spans multiple paragraphs. For example:
+
+> His words seemed to have struck some deep chord in his own nature. Had he spoken
+of himself, of himself as he was or wished to be? Stephen watched his face for some
+moments in silence. A cold sadness was there. He had spoken of himself, of his own
+loneliness which he feared.
+>
+> -Of whom are you speaking? Stephen asked at length.
+>
+> Cranly did not answer.
+
+Notice that even blank lines must contain the caret character. This ensures that the entire blockquote is grouped together.
+
+### Lists
+
+There are two types of lists in the known universe: unordered and ordered. That's a fancy way of saying that there are lists with bullet points, and lists with numbers.
+
+To create an unordered list, you'll want to preface each item in the list with an asterisk (`*`). Each list item also gets its own line. For example, a grocery list in Markdown might look like this:
+
+* Milk
+* Eggs
+* Salmon
+* Butter
+
+An ordered list is prefaced with numbers, instead of asterisks. For example:
+
+1. Crack three eggs over a bowl
+2. Pour a gallon of milk into the bowl
+3. Rub the salmon vigorously with butter
+4. Drop the salmon into the egg-milk bowl
+
+Easy, right? It's just like you'd expect a list to look.
+
+
+### Paragraphs
+
+Markdown has several ways of formatting paragraphs.Let's take a few lines of poetry as an example. If you wrote this...
+
+Do I contradict myself?
+Very well then I contradict myself,
+(I am large, I contain multitudes.)
+
+... it's all on one line. If you forcefully insert a new line, you end up breaking the togetherness:
+
+Do I contradict myself?
+
+Very well then I contradict myself,
+
+(I am large, I contain multitudes.)
+
+This is what's known as a hard break; what poetry asks for is a soft break. You can accomplish this by inserting two spaces **after** each new line.  This is not possible to see, since spaces are invisible, but it'd look something like this:
+
+Do I contradict myself?  
+Very well then I contradict myself,  
+(I am large, I contain multitudes.) 
+
+
+## R Markdown
+
+This is actually an R Markdown document. As we saw above, Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you run `render` (or click the knit button above), R Markdown feeds the .Rmd file to knitr, which executes all of the code chunks and creates a new markdown (.md) document which includes the code and it's output.
+
+The markdown file generated by knitr is then processed by pandoc which is responsible for creating the finished format.
+
+![](http://rmarkdown.rstudio.com/lesson-images/RMarkdownFlow.png)
+
+### Embedding Code
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+x <- 2
+y <- 3
+x + y
+```
+
+#### Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot. Here, we used the `pressure` data set that comes installed in R.
+
+### Equations
+
+If you know latex, including equations is really simple. The same syntax is used. For example, you can write an _inline_ equation like this - $A = \pi*r^{2}$. You can also center an equation like this:
+
+\begin{equation}
+\mathbb{E}[Y] = \beta_0 + \beta_1x
+\end{equation}
+
+### Tables
+
+You can create a simple table by hand ...
+
+Table Header | Second Header
+------------ | -------------
+Table Cell   | Cell #2
+Cell #3      | Cell #4
+
+... or make your data look pretty using knitr's `kable`
+function.
+
+```{r eval = TRUE, results = 'asis'}
+library(knitr)
+kable(mtcars[1:5, ], caption = "A knitr table")
+```
+
+Note the use of the `results='asis'` chunk option. This is required to ensure that the raw table output isn't processed further by knitr.
+
+### Code Languages
+
+knitr can execute code in many languages besides R. Some of the available language engines include:
+
+* Python
+* SQL
+* Bash
+* CSS
+* JavaScript
+
+To process a code chunk using an alternate language engine, replace the `r` at the start of your chunk declaration with the name of the language:
+
+```{python}
+print("Hello World!")
+```
+
+## R Markdown and GitHub
+
+If you use GitHub (which is definitely recommended), you can pull, commit and push R Markdown files to GitHub repositories in RStudio.  
+1. Go to the GitHub repository you'd like to work on
+
+2.Copy the link near the top of the page that is revealed after clicking 'clone or download'.
+
+ <center><img src="./images/git-clone.png" alt="gitclean" style="width: 600px;"/></center>
+
+3. In RStudio, start a new project: File > New Project > Version Control > Git. In the "repository URL" paste the URL of the homework repository you just copied. Take charge of - or at least notice! - the local directory for the Project. A common rookie mistake is to have no idea where you are saving files or what your working directory is. Pay attention. Be intentional. 
+
+<center><img src="./images/newproject.png" alt="gitclean" style="width: 600px;"/></center>
+
+<center><img src="./images/directorysetup.png" style="width: 600px;"/></center>
+
+4. Click "Create Project". You should now see the files in the repository in the lower right window in RStudio. Also notice the Git tab in the upper right window.
+
+ <center><img src="./images/rstudio_screen.png" alt="gitclean" style="width: 700px;"/></center>
+
+Once you have a local copy of your repository, it's time to get to work! 
+
+After writing some of your work in an `Rmd` file, and `knit` it, make pretty plots, find out some cool stuff about the dataset it's time to `commit/push`. After some work, save your changes and click the `commit` button in the Git tab window. This is equivalent to `save` in most programs. But what is special 
+about `git` and other version control software is that we can track and revert changes! We also need to give what's called a `commit message`, which will help us keep track of the changes we made when we look at this in the future. Leave detailed messages so that future you will know what you did. Future you will thank you.  
+
+ <center><img src="./images/rstudio_commit.png" alt="gitclean" style="width: 700px;"/></center>
+
+Cool! Now we've saved our work on our local directory, we can now `push` our work to Github by clicking the *green up-arrow* in the Git tab window. If you are challenged for username and password, provide them. Note, we can (and should) do this as many times as possible. What is great about this is that 
+it will keep a copy of your work in the cloud in case your computer crashes, or you accidentally delete something.	
+
+
+## Other Awesome Powers
+
+R Markdown can render PDF presentations with beamer, HTML presentations with ioslides, slidy and reveal.js. 
+
+You can also build your own websites and interactive documents.
+
+These powers are too complicated and time consuming for this course, but at least you know it's possible!
+
+
+

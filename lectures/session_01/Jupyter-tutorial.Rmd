@@ -1,0 +1,40 @@
+---
+title: "Jupyter Tutorial"
+output: html_document
+---
+
+Click on this [link](http://jupyter.org/) to either work on a notebook in your browser, or install everything you need to launch Jupyter (IPython) from the command line on your computer.
+Once you have it installed, start it with this command in the terminal:
+
+`jupyter notebook`
+
+If everything worked correctly, you should see a screen like this, showing all available Jupyter notebooks in the current directory:
+
+<center><img src="./images/file-browser.png" style="width: 600px;"/></center>
+
+
+If you click through to a notebook file, you will see a screen like this:
+
+<center><img src="./images/notebook-1.png" style="width: 600px;"/></center>
+
+
+An IPython notebook is made up of a number of **cells**. Each cell can contain Python code. You can execute a cell by clicking on it and pressing `Shift-Enter`. When you do so, the code in the cell will run, and the output of the cell will be displayed beneath the cell. For example, after running the first cell the notebook looks like this:
+
+<center><img src="./images/notebook-2.png" style="width: 600px;"/></center>
+
+
+Global variables are shared between cells. Executing the second cell thus gives the following result:
+
+<center><img src="./images/notebook-3.png" style="width: 600px;"/></center>
+
+
+By convention, IPython notebooks are expected to be run from top to bottom. Failing to execute some cells or executing cells out of order can result in errors:
+
+
+<center><img src="./images/notebook-error.png" style="width: 600px;"/></center>
+
+After you have modified an IPython notebook for one of the assignments by modifying or executing some of its cells, remember to save your changes!
+
+
+
+<center><img src="./images/save-notebook.png" style="width: 600px;"/></center>
