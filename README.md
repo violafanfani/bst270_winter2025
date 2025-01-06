@@ -1,9 +1,9 @@
 ### Welcome to BST 270: Reproducible Data Science
 
-Instructor: Viola Fanfani (vfanfani@hsph.harvard.edu)
-TFs: Raphael Kim (raphaelkim@fas.harvard.edu)
+Instructor: Viola Fanfani (she/her) (vfanfani@hsph.harvard.edu)
+TFs: Nikhil Vytla (he/him) (nikhilvytla@hsph.harvard.edu)
 
-January 8-12, 16-18, 9am-12pm
+January 13-17, 21-23, 9am-12pm
 
 Viola's office hour: by appointment
 Raphael's office hour: by appointment
@@ -30,7 +30,7 @@ You are welcome to ask questions and advice during the second week of the course
 
 #### Link to module discussion form
 
-https://forms.gle/uk62vVCbL3Joix5WA
+
 
 #### Recommended reading
 1. [Christopher Gandrud (2015), Reproducible Research with R and RStudio, 2nd Ed.](https://englianhu.files.wordpress.com/2016/01/reproducible-research-with-r-and-studio-2nd-edition.pdf)
