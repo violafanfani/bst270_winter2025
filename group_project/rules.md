@@ -23,7 +23,7 @@ If you are fixing one of the open issues, reference is in the commit/PR.
 
 Follow the fork-PR model for contribution that you can find [here](https://netzoo.github.io/contribute/contribute/).
 
-1. Fork the bst270 repo
+1. Fork the bst270_winter2025 repo
 2. Clone it locally and checkout to devel
 3. Create a new branch based on the feature you want to add or modify
 4. Commit and push changes
