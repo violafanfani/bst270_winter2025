@@ -5,14 +5,14 @@ TFs: Nikhil Vytla (he/him) (nikhilvytla@hsph.harvard.edu)
 
 January 13-17, 21-23, 9am-12pm
 
-Viola's office hour: by appointment
-Raphael's office hour: by appointment
+Viola's office hours: by appointment
+Nikhil's office hours: by appointment
 
 #### Purpose of the course
-Reproducible research has become increasingly important in the biomedical sciences. The science community has recognized reproducibility is a growing challenge in basic, clinical and population sciences. Experimental design, data provenance, analytic methods and tools, and reporting science play a critical role in the biomedical research ecosystem to ensure scientific rigor, robustness and transparency. Statistical and computational methods and tools are fundamental for making scientific results reproducible. 
+Reproducible research has become increasingly important in the biomedical sciences. The science community has recognized reproducibility is a growing challenge in basic, clinical, and population sciences. Experimental design, data provenance, analytic methods and tools, and reporting science play a critical role in the biomedical research ecosystem to ensure scientific rigor, robustness, and transparency. Statistical and computational methods and tools are fundamental for making scientific results reproducible. 
 
 #### Course structure
-The central theme of the course will be to meet these scientific needs of reproducible science through training in reproducible research. The topics covered in this course include the fundamentals of reproducible science, case studies in reproducible research, data provenance, statistical methods for reproducible science, and computational tools for reproducible science. This is a **blended** course where students are introduced to course content online through videos and reading assignments, and then shown how to use the tools and methods described in the videos to conduct reproducible research. The online videos can be found on edx.org - the course title is [Principles, Statistical and Computational Tools for Reproducible Science](https://courses.edx.org/courses/course-v1:HarvardX+PH527x+1T2020/course/). In class we will attempt to reproduce the results of a recently published paper and then critique its reproducibility. Students will also complete an individual project.
+The central theme of the course will be to meet these scientific needs of reproducible science through training in reproducible research. The topics covered in this course include the fundamentals of reproducible science, case studies in reproducible research, data provenance, statistical methods for reproducible science, and computational tools for reproducible science. This is a **blended** course where students are introduced to course content online through videos and reading assignments, and then shown how to use the tools and methods described in the videos to conduct reproducible research. The online videos can be found on edx.org - the course title is [Principles, Statistical and Computational Tools for Reproducible Science](https://courses.edx.org/courses/course-v1:HarvardX+PH527x+1T2020/course/). In class, we will attempt to reproduce the results of a recently published paper and then critique its reproducibility. Students will also complete an individual project.
 
 The complete syllabus is in the syllabus folder of this repo and on CANVAS.
 
