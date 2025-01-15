@@ -28,8 +28,8 @@ Filter_confounders = function(Df){
   Df = Df %>% mutate(B1PB1 = as.integer(B1PB1))
   
   ## the blood pressure variable processing
-  ## Missing = NA. B1PA24 Yes/Suspects -> look at C answer; else C=no
-  Df$BPmed <- Df$B1PA24C
+  ## Missing = NA. B1PA24 Yes/Suspects -> look at B answer; else C=no
+  Df$BPmed <- Df$B1PA24B
   Df$BPmed <- ifelse(is.na(Df$BPmed) & Df$B1PA24 == '(2) No', '(2) No', Df$BPmed)
   Df = Df[!is.na(Df$BPmed),]
   
