@@ -142,10 +142,12 @@ HDL, LDL, triglicerydes).
 ### Step 1 Filter lipid measurements
 
 ```{r}
-# filter and clean lipud measurement columns
+# filter and clean lipid measurement columns
+source("filter_lipids.R")
+Df_lipids <- Filter_lipids(data)
 ```
 
-After filtering lipid measurements, we have x rows left
+After filtering lipid measurements, we have 1043 rows left
 
 ### Step 2 Filter pathway variables
 
