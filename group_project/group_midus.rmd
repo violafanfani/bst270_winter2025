@@ -132,6 +132,8 @@ an optimism score.
 
 ```{r}
 # filter optimism variables
+source("filter_optimism.R")
+Df_optimism <- Filter_optimism(data)
 ```
 
 We are left with x samples
