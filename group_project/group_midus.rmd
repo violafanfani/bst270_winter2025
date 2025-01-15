@@ -152,8 +152,10 @@ After filtering lipid measurements, we have 1043 rows left
 ### Step 2 Filter pathway variables
 
 ```{r}
-
 # filter pathway varibales
+source("filter_pathway.R")
+Df_pathway <- filter_pathway(data)
+print(dim(Df_pathway))
 ```
 
 We are left with x samples
