@@ -21,8 +21,8 @@ And by using the functions in the following files
 
 ```{r, include=FALSE}
 
-#source("R/my_read_rda.R", local = knitr::knit_global())
-#source("R/filter_lipid.R")
+source("R/my_read_rda.R", local = knitr::knit_global())
+source("R/filter_lipid.R")
 
 ```
 
