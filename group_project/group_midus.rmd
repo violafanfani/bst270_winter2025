@@ -22,7 +22,6 @@ And by using the functions in the following files
 ```{r, include=FALSE}
 
 #source("R/my_read_rda.R", local = knitr::knit_global())
-#source("R/filter_lipid.R")
 
 ```
 
@@ -95,7 +94,6 @@ us to have package-like documentation for all of the functions.
 
 ```{r}
 if (!require('devtools')) install.packages('devtools')
-devtools::document()
 ```
 
 ## Read data
@@ -104,7 +102,6 @@ First we load the data. 29282-0001-Data contains the analysis-associated
 data, while 04652-0001-Data contains the midus clinical data.
 
 ```{r}
-getwd()
 load('data/29282-0001-Data.rda')
 load('data/04652-0001-Data.rda')
 ```
@@ -145,6 +142,7 @@ HDL, LDL, triglicerydes).
 # filter and clean lipid measurement columns
 source("filter_lipids.R")
 Df_lipids <- Filter_lipids(data)
+print(dim(Df_lipids))
 ```
 
 After filtering lipid measurements, we have 1043 rows left
@@ -171,7 +169,7 @@ Here we are left with x individuals
 Let's keep only the columns of interest
 
 ```{r}
-all_columns = c(optimism_columns, lipid_columns, pathway_columns, confounder_columns)
+# all_columns = c(optimism_columns, lipid_columns, pathway_columns, confounder_columns)
 #View(data_after_fc[,all_columns])
 ```
 

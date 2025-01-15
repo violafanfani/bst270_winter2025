@@ -30,3 +30,5 @@ Follow the fork-PR model for contribution that you can find [here](https://netzo
 5. Open a pull request from the github page to the devel branch
 
 
+Version 2
+
