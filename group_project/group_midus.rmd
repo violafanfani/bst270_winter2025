@@ -141,8 +141,7 @@ HDL, LDL, triglicerydes).
 ```{r}
 # filter and clean lipid measurement columns
 source("filter_lipids.R")
-Df_lipids <- Filter_lipids(data)
-print(dim(Df_lipids))
+data_after_lipid_filtering <- Filter_lipids(data)
 ```
 
 After filtering lipid measurements, we have 1043 rows left
@@ -163,7 +162,7 @@ Finally we filter the potential confounders, such as age, sex, income..
 ```{r}
 # filter confounders
 source("filter_confounders.R")
-confounder_columns = Filter_confounders(data)
+data_after_confounder_filtering = Filter_confounders(data)
 ```
 
 Here we are left with x individuals
@@ -171,6 +170,11 @@ Here we are left with x individuals
 Let's keep only the columns of interest
 
 ```{r}
+full_data <- inner_join(data_after_lipid_filtering, 
+           data_after_confounder_filtering, by = "M2ID")
+
+print(dim(full_data))
+
 # all_columns = c(optimism_columns, lipid_columns, pathway_columns, confounder_columns)
 #View(data_after_fc[,all_columns])
 ```
