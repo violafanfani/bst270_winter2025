@@ -162,6 +162,8 @@ Finally we filter the potential confounders, such as age, sex, income..
 
 ```{r}
 # filter confounders
+source("filter_confounders.R")
+confounder_columns = Filter_confounders(data)
 ```
 
 Here we are left with x individuals
