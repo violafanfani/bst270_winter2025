@@ -131,7 +131,7 @@ an optimism score.
 ```{r}
 # filter optimism variables
 source("filter_optimism.R")
-Df_optimism <- Filter_optimism(data)
+data_after_optimism_filtering <- Filter_optimism(data)
 ```
 
 We are left with x samples
@@ -177,8 +177,9 @@ Here we are left with x individuals
 Let's keep only the columns of interest
 
 ```{r}
-full_data <- inner_join(data_after_lipid_filtering, 
-           data_after_confounder_filtering, by = "M2ID") %>%
+full_data <- inner_join(data_after_optimism_filtering,
+                        data_after_lipid_filtering, by = "M2ID") %>%
+    inner_join(data_after_confounder_filtering, by = "M2ID") %>%
     inner_join(data_after_pathway_filtering, by = 'M2ID')
 
 print(dim(full_data))
