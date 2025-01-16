@@ -123,7 +123,9 @@ obtain the 990 individuals they used for the paper analysis.
 ### Step 0. Filter optimism variables
 
 Optimism is assessed using the 6-item Life-Orientation test. In the
-codebook we have found that ...
+codebook we have found that B1SORIEN is the column with the results of the life orientation test. 
+We excluded entries with -1 or non-integer values. 
+We arbitrarily made this choice because we couln't find any indication in the docs.
 
 Here we are filtering the rows to remove the individuals who do not have
 an optimism score.
@@ -132,9 +134,10 @@ an optimism score.
 # filter optimism variables
 source("filter_optimism.R")
 data_after_optimism_filtering <- Filter_optimism(data)
+print(dim(data_after_optimism_filtering))
 ```
 
-We are left with x samples
+We are left with 1046 samples that optimism data.
 
 Secondly, we clean the columns relative to lipids (Total cholesterol,
 HDL, LDL, triglicerydes).
@@ -150,6 +153,15 @@ print(dim(data_after_lipid_filtering))
 
 After filtering lipid measurements, we have 1043 rows left
 
+```{r}
+temp_data <- inner_join(data_after_optimism_filtering,
+                        data_after_lipid_filtering, by = "M2ID")
+
+print(dim(temp_data))
+```
+
+1035 after filtering for both lipids and optimism
+
 ### Step 2 Filter pathway variables
 
 ```{r}
@@ -159,7 +171,22 @@ data_after_pathway_filtering <- filter_pathway(data)
 print(dim(data_after_pathway_filtering))
 ```
 
-We are left with x samples
+We are left with 1048 samples
+
+```{r}
+temp_data <- inner_join(data_after_optimism_filtering,
+                        data_after_lipid_filtering, by = "M2ID") %>%
+              inner_join(data_after_pathway_filtering, by = "M2ID")
+
+print(dim(temp_data))
+```
+
+
+1031 after pathway filtering.
+
+The drinking variable was the hardest one to deal with, because there are multiple
+columns dedicated to it, and also the numbers in there are hard to understand. 
+
 
 ### Step 3 Filter potential confounders
 
@@ -172,7 +199,17 @@ data_after_confounder_filtering = Filter_confounders(data)
 print(dim(data_after_confounder_filtering))
 ```
 
-Here we are left with x individuals
+```{r}
+temp_data <- inner_join(data_after_optimism_filtering,
+                        data_after_lipid_filtering, by = "M2ID") %>%
+              inner_join(data_after_pathway_filtering, by = "M2ID") %>% 
+  inner_join(data_after_confounder_filtering, by = "M2ID")
+
+print(dim(temp_data))
+```
+
+
+Here we are left with 977 individuals
 
 Let's keep only the columns of interest
 
@@ -188,6 +225,10 @@ print(dim(full_data))
 #View(data_after_fc[,all_columns])
 ```
 
+The data seems to be complete, but the documentation or methods section does 
+not give full details on which columns they are using and how they filter them.
+
+
 ## Figure 1
 
 First, we attempt to reproduce Figure 1. Figure 1 shows the frequency
@@ -197,8 +238,9 @@ middle tertile of optimism (23 to 26), and white, highest tertile of
 optimism (27 to 30)
 
 ```{r}
-
 #generate figure 1
+source("figure1.R")
+figure1(full_data) #print histogram
 ```
 
 ## Table 1
