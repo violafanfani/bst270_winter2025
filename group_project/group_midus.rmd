@@ -207,5 +207,32 @@ We then proceed to reproduce table 1. We are gonna split it in different
 chunks, based on the lipid/confounder/pathway groups.
 
 ```{r}
+truncate_decimal <- function(x, digits) {
+  factor <- 10^digits
+  ifelse(x >= 0, floor(x * factor) / factor, ceiling(x * factor) / factor)
+}
+
 # generate table 1
+optimism <- ifelse(full_data$B1SORIEN <= 22, "low",
+          ifelse(full_data$B1SORIEN >= 27, "high", "moderate"))
+
+tb_smoke = table(full_data$smoking_status,optimism)
+tb_smoke = tb_smoke[,c(2,3,1)]
+
+row_prop_smoke = tb_smoke
+for(i in 1:3){
+  row_prop_smoke[i,] = tb_smoke[i,]/sum(tb_smoke[i,])
+}
+row.names(row_prop_smoke) = c("Current smoker row %","Past smoker row %","Never smoker row %")
+row_prop_smoke = truncate_decimal(row_prop_smoke * 100,2)
+row_prop_smoke
+
+col_prop_smoke = tb_smoke
+for(i in 1:3){
+  col_prop_smoke[,i] = tb_smoke[,i]/sum(tb_smoke[,i])
+}
+row.names(col_prop_smoke) = c("Current smoker col %","Past smoker col %","Never smoker col %")
+col_prop_smoke = truncate_decimal(col_prop_smoke * 100,2)
+col_prop_smoke
+
 ```
