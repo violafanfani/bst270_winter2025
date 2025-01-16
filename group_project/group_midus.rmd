@@ -10,6 +10,7 @@ editor_options:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
 ```
 
 ## Dependencies
@@ -144,6 +145,7 @@ HDL, LDL, triglicerydes).
 # filter and clean lipid measurement columns
 source("filter_lipids.R")
 data_after_lipid_filtering <- Filter_lipids(data)
+print(dim(data_after_lipid_filtering))
 ```
 
 After filtering lipid measurements, we have 1043 rows left
@@ -153,8 +155,8 @@ After filtering lipid measurements, we have 1043 rows left
 ```{r}
 # filter pathway varibales
 source("filter_pathway.R")
-Df_pathway <- filter_pathway(data)
-print(dim(Df_pathway))
+data_after_pathway_filtering <- filter_pathway(data)
+print(dim(data_after_pathway_filtering))
 ```
 
 We are left with x samples
@@ -167,8 +169,7 @@ Finally we filter the potential confounders, such as age, sex, income..
 # filter confounders
 source("filter_confounders.R")
 data_after_confounder_filtering = Filter_confounders(data)
-
-
+print(dim(data_after_confounder_filtering))
 ```
 
 Here we are left with x individuals
@@ -177,7 +178,8 @@ Let's keep only the columns of interest
 
 ```{r}
 full_data <- inner_join(data_after_lipid_filtering, 
-           data_after_confounder_filtering, by = "M2ID")
+           data_after_confounder_filtering, by = "M2ID") %>%
+    inner_join(data_after_pathway_filtering, by = 'M2ID')
 
 print(dim(full_data))
 
