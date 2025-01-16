@@ -238,8 +238,9 @@ middle tertile of optimism (23 to 26), and white, highest tertile of
 optimism (27 to 30)
 
 ```{r}
-
 #generate figure 1
+source("figure1.R")
+figure1(full_data) #print histogram
 ```
 
 ## Table 1
