@@ -18,4 +18,4 @@ figure1 <- function(Df){
   return(histogram)
 }
 
-figure1(Df_optimism)
+
