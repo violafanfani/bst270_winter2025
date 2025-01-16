@@ -21,17 +21,21 @@ Filter_confounders = function(Df){
   Df = cleanVisitInterval(Df)
   
   ## remove all NA for income and race
-  confounders.ls = c('B1PB1','B1SRINC1','B1PF7A','B1PAGE_M2','B1PRSEX','B1SCHROX')
+  confounders.ls = c('B1PB1','B1SRINC1','B1PF7A','B1PAGE_M2','B1PRSEX','B1SCHROX','B1SNEGPA')
   Df = Df[complete.cases(Df[,confounders.ls]), ]
   
   ## convert the education to numeric 
   Df = Df %>% mutate(B1PB1 = as.integer(B1PB1))
   
   ## the blood pressure variable processing
-  ## Missing = NA. B1PA24 Yes/Suspects -> look at C answer; else C=no
-  Df$BPmed <- Df$B1PA24C
+  ## B1PA24 Yes/Suspects -> look at B1PA24B answer; else=no
+  ## B1PA24B should be used instead of B1PA24C (too much missing values)
+  Df$BPmed <- Df$B1PA24B
   Df$BPmed <- ifelse(is.na(Df$BPmed) & Df$B1PA24 == '(2) No', '(2) No', Df$BPmed)
   Df = Df[!is.na(Df$BPmed),]
+  
+  ## negative affect column transformation
+  
   
   ## outputting a data frame called confounder_columns
   confounder_columns = data.frame(
@@ -46,7 +50,8 @@ Filter_confounders = function(Df){
                                       Df$B1PB1 == 4 | Df$B1PB1 == 5 ~ 2,
                                       Df$B1PB1 == 6 | Df$B1PB1 == 7 ~ 3,
                                       Df$B1PB1 > 7 ~ 4),
-    blood_pressure_med = Df$BPmed
+    blood_pressure_med = Df$BPmed,
+    negative_affect = Df$B1SNEGPA
   )
   return(confounder_columns)
 }

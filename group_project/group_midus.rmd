@@ -129,6 +129,8 @@ an optimism score.
 
 ```{r}
 # filter optimism variables
+source("filter_optimism.R")
+Df_optimism <- Filter_optimism(data)
 ```
 
 We are left with x samples
@@ -163,6 +165,8 @@ Finally we filter the potential confounders, such as age, sex, income..
 # filter confounders
 source("filter_confounders.R")
 data_after_confounder_filtering = Filter_confounders(data)
+
+
 ```
 
 Here we are left with x individuals
