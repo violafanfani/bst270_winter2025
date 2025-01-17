@@ -208,8 +208,7 @@ temp_data <- inner_join(data_after_optimism_filtering,
 print(dim(temp_data))
 ```
 
-
-Here we are left with 977 individuals
+Here we are left with 996 individuals
 
 Let's keep only the columns of interest
 
@@ -238,11 +237,21 @@ middle tertile of optimism (23 to 26), and white, highest tertile of
 optimism (27 to 30)
 
 ```{r}
+mean(full_data$B1SORIEN)
+sd(full_data$B1SORIEN)
+```
+
+We get mean (24.008 +- 4.69), so the mean is slightly higher, but the SD is comparable.
+Tertiles: 22 and 27 so we probably have fewer patients with lower optimism score.
+
+```{r}
 #generate figure 1
 source("figure1.R")
 figure1(full_data) #print histogram
 
 ```
+
+
 
 ## Table 1
 
@@ -253,6 +262,11 @@ chunks, based on the lipid/confounder/pathway groups.
 ```{r}
 source("generate_table1_confounding.R")
 generate_confounding_table1(full_data)
+
+```{r}
+# generate table 1 based on the lipid variables
+source("table_1_lipid.R")
+table_1_lipid(full_data)
 ```
 
 ## Table 2

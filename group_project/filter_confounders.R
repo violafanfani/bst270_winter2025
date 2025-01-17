@@ -2,8 +2,7 @@
 cleanVisitInterval <- function(Df){
   Df$B4ZCOMPM <- as.numeric(Df$B4ZCOMPM) #B4ZCOMPM is a factor; convert to months
   #number of full years between visits
-  years <- ifelse(Df$B1PIDATE_YR==Df$B4ZCOMPY,
-                  0,
+  years <- ifelse(Df$B1PIDATE_YR==Df$B4ZCOMPY,0,
                   Df$B4ZCOMPY-(Df$B1PIDATE_YR+1))
   #visit interval in months
   Df$visitInterval <- ifelse(Df$B1PIDATE_YR==Df$B4ZCOMPY,
@@ -20,8 +19,9 @@ Filter_confounders = function(Df){
   ## get months between optimism and serum lipid measures
   Df = cleanVisitInterval(Df)
   
-  ## remove all NA for income and race
-  confounders.ls = c('B1PB1','B1SRINC1','B1PF7A','B1PAGE_M2','B1PRSEX','B1SCHROX','B1SNEGPA')
+  ## remove all NA for selected confounders
+  ## income variable was changed to B1STINC1 (household only) from B1SRINC1 (sum)
+  confounders.ls = c('B1PB1','B1STINC1','B1PF7A','B1PAGE_M2','B1PRSEX','B1SCHROX','B1SNEGPA')
   Df = Df[complete.cases(Df[,confounders.ls]), ]
   
   ## convert the education to numeric 
@@ -31,16 +31,13 @@ Filter_confounders = function(Df){
   ## B1PA24 Yes/Suspects -> look at B1PA24B answer; else=no
   ## B1PA24B should be used instead of B1PA24C (too much missing values)
   Df$BPmed <- Df$B1PA24B
-  Df$BPmed <- ifelse(is.na(Df$BPmed) & Df$B1PA24 == '(2) No', '(2) No', Df$BPmed)
+  Df$BPmed <- ifelse(is.na(Df$BPmed) & Df$B1PA24 == '(2) No', 2, Df$BPmed)
   Df = Df[!is.na(Df$BPmed),]
-  
-  ## negative affect column transformation
-  
   
   ## outputting a data frame called confounder_columns
   confounder_columns = data.frame(
     M2ID = Df$M2ID,
-    household_income = Df$B1SRINC1/1000,
+    household_income = Df$B1STINC1/1000,
     race = ifelse(Df$B1PF7A=="(1) White","White","Nonwhite"),
     visit_interval = Df$visitInterval,
     age = Df$B1PAGE_M2,
