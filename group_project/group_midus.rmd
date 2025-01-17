@@ -253,13 +253,29 @@ source("figure1.R")
 figure1(full_data) #print histogram
 
 ```
+We were able to reproduce the figure, but given the discrepancies in the number of patients
+the tertiles are not exactly the same. 
 
+We do not know exactly why, but the cholesterol column seems to have some "weird" values
+that might explain the difference in the population.
 
 
 ## Table 1
 
 We then proceed to reproduce table 1. We are gonna split it in different
 chunks, based on the lipid/confounder/pathway groups.
+
+### Pathway
+
+```{r}
+
+source("pathway_tableone.R")
+pathway_tableone(full_data)
+exercise_tbl(full_data)
+
+```
+We have similar resutls for the smoking status, but different for drinking status. 
+
 
 ### Confounder
 ```{r}
@@ -271,21 +287,25 @@ truncate_decimal <- function(x, digits) {
 
 # generate table 1
 
-
-source("pathway_tableone.R")
-pathway_tableone(full_data)
-exercise_tbl(full_data)
-
-
 source("generate_table1_confounding.R")
 generate_confounding_table1(full_data)
 ```
+
+Results are pretty similar, however we are unable to replicate the chronic conditions 
+results. We could not figure out how to process the data, because we use the same 
+variables they refer to in the paper, but the percentages are different.
+
+
 
 ```{r}
 # generate table 1 based on the lipid variables
 source("table_1_lipid.R")
 table_1_lipid(full_data)
 ```
+
+We get similar results, although for total cholesterol they might have kept all values, 
+maybe that is why we get different results.
+
 
 ## Table 2
 
@@ -345,6 +365,12 @@ results_df <- results_df %>%
 knitr::kable(results_df)
 
 ```
+
+We get very similar results, so even if the population is slightly different, we do not
+arrive at different conclusions. However, for Chronic conditions we do get different results
+which is in line with the different values we saw for table 1.
+
+
 
 ## Table 5
 
