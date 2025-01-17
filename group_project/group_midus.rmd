@@ -123,7 +123,9 @@ obtain the 990 individuals they used for the paper analysis.
 ### Step 0. Filter optimism variables
 
 Optimism is assessed using the 6-item Life-Orientation test. In the
-codebook we have found that ...
+codebook we have found that B1SORIEN is the column with the results of the life orientation test. 
+We excluded entries with -1 or non-integer values. 
+We arbitrarily made this choice because we couln't find any indication in the docs.
 
 Here we are filtering the rows to remove the individuals who do not have
 an optimism score.
@@ -132,9 +134,10 @@ an optimism score.
 # filter optimism variables
 source("filter_optimism.R")
 data_after_optimism_filtering <- Filter_optimism(data)
+print(dim(data_after_optimism_filtering))
 ```
 
-We are left with x samples
+We are left with 1046 samples that optimism data.
 
 Secondly, we clean the columns relative to lipids (Total cholesterol,
 HDL, LDL, triglicerydes).
@@ -150,6 +153,15 @@ print(dim(data_after_lipid_filtering))
 
 After filtering lipid measurements, we have 1043 rows left
 
+```{r}
+temp_data <- inner_join(data_after_optimism_filtering,
+                        data_after_lipid_filtering, by = "M2ID")
+
+print(dim(temp_data))
+```
+
+1035 after filtering for both lipids and optimism
+
 ### Step 2 Filter pathway variables
 
 ```{r}
@@ -159,7 +171,22 @@ data_after_pathway_filtering <- filter_pathway(data)
 print(dim(data_after_pathway_filtering))
 ```
 
-We are left with x samples
+We are left with 1048 samples
+
+```{r}
+temp_data <- inner_join(data_after_optimism_filtering,
+                        data_after_lipid_filtering, by = "M2ID") %>%
+              inner_join(data_after_pathway_filtering, by = "M2ID")
+
+print(dim(temp_data))
+```
+
+
+1031 after pathway filtering.
+
+The drinking variable was the hardest one to deal with, because there are multiple
+columns dedicated to it, and also the numbers in there are hard to understand. 
+
 
 ### Step 3 Filter potential confounders
 
@@ -172,7 +199,16 @@ data_after_confounder_filtering = Filter_confounders(data)
 print(dim(data_after_confounder_filtering))
 ```
 
-Here we are left with x individuals
+```{r}
+temp_data <- inner_join(data_after_optimism_filtering,
+                        data_after_lipid_filtering, by = "M2ID") %>%
+              inner_join(data_after_pathway_filtering, by = "M2ID") %>% 
+  inner_join(data_after_confounder_filtering, by = "M2ID")
+
+print(dim(temp_data))
+```
+
+Here we are left with 996 individuals
 
 Let's keep only the columns of interest
 
@@ -188,6 +224,10 @@ print(dim(full_data))
 #View(data_after_fc[,all_columns])
 ```
 
+The data seems to be complete, but the documentation or methods section does 
+not give full details on which columns they are using and how they filter them.
+
+
 ## Figure 1
 
 First, we attempt to reproduce Figure 1. Figure 1 shows the frequency
@@ -197,16 +237,30 @@ middle tertile of optimism (23 to 26), and white, highest tertile of
 optimism (27 to 30)
 
 ```{r}
-
-#generate figure 1
+mean(full_data$B1SORIEN)
+sd(full_data$B1SORIEN)
 ```
+
+We get mean (24.008 +- 4.69), so the mean is slightly higher, but the SD is comparable.
+Tertiles: 22 and 27 so we probably have fewer patients with lower optimism score.
+
+```{r}
+#generate figure 1
+source("figure1.R")
+figure1(full_data) #print histogram
+
+```
+
+
 
 ## Table 1
 
 We then proceed to reproduce table 1. We are gonna split it in different
 chunks, based on the lipid/confounder/pathway groups.
 
+### Confounder
 ```{r}
+
 truncate_decimal <- function(x, digits) {
   factor <- 10^digits
   ifelse(x >= 0, floor(x * factor) / factor, ceiling(x * factor) / factor)
@@ -220,4 +274,72 @@ pathway_tableone(full_data)
 exercise_tbl(full_data)
 
 
+source("generate_table1_confounding.R")
+generate_confounding_table1(full_data)
 ```
+
+```{r}
+# generate table 1 based on the lipid variables
+source("table_1_lipid.R")
+table_1_lipid(full_data)
+```
+
+## Table 2
+
+We then proceed to reproduce table 2. They don't specify how the correlations
+and p-values are calculated, so we'll assume Spearman correlation and
+HC3 standard errors
+
+```{r}
+fig2_cols <- c("Optimism", "Age", "Gender", "Race", "Education", "Income",
+               "Interval between assessments", "Chronic conditions",
+               "Blood pressure medication", "Body mass index", "Smoking status",
+               "Alcohol consumption", "Prudent diet", "Regular exercise",
+               "Negative affect")
+cor_data <- full_data %>%
+    mutate(Optimism = B1SORIEN,
+           Age = as.numeric(age),
+           Gender = case_when(sex == '(1) Male' ~ 0,
+                              sex == '(2) Female' ~ 1),
+           Race = case_when(race == 'White' ~ 0,
+                            race == 'Nonwhite' ~ 1),
+           Education = education_categorical,
+           Income = household_income,
+           `Interval between assessments` = visit_interval,
+           `Chronic conditions` = case_when(chronic_condition == '(0) No' ~ 0,
+                                            chronic_condition == '(1) Yes' ~ 1),
+           `Blood pressure medication` = case_when(blood_pressure_med == '(2) No' | blood_pressure_med == '2' ~ 0,
+                                                   blood_pressure_med == '1' ~ 1),
+           `Body mass index` = BMI,
+           `Smoking status` = case_when(smoking_status == '(1) current smoker' ~ 1,
+                                        smoking_status == '(2) past smoker' ~ 2,
+                                        smoking_status == '(3) never smoker' ~ 3),
+           `Alcohol consumption` = drinks_per_day,
+           `Prudent diet` = prudent_diet_score,
+           `Regular exercise` = case_when(regular_exercise == '(2) No' ~ 0,
+                                          regular_exercise == '(1) Yes' ~ 1),
+           `Negative affect` = negative_affect) %>%
+    select(all_of(fig2_cols))
+
+results_df <- data.frame(matrix(ncol = 3, nrow = length(fig2_cols) - 1))
+colnames(results_df) <- c("Characteristic", "r", "p")
+for (i in seq(fig2_cols[-1])) {
+    colname <- fig2_cols[-1][i]
+    cor_val <- c(cor(cor_data[colname], cor_data$Optimism, method = 'pearson'))
+    lm_model <- lm(cor_data$Optimism ~ unlist(cor_data[colname]))
+    pval <- coef(summary(lm_model))[2, 'Pr(>|t|)']
+    results_df$Characteristic[i] <- colname
+    results_df$r[i] <- cor_val
+    results_df$p[i] <- pval
+}
+
+results_df <- results_df %>%
+    mutate(r = round(r, 2),
+           p = case_when(p < 0.0001 ~ "<0.0001",
+                            p < 0.001 ~ "<0.001",
+                            TRUE ~ as.character(round(p, 2))))
+
+knitr::kable(results_df)
+
+```
+
