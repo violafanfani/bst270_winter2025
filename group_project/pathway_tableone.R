@@ -71,6 +71,15 @@ pathway_tableone = function(full_data) {
 }
 
 exercise_tbl = function(df) {
+  
+  low = full_data$B1SORIEN >= 6 & full_data$B1SORIEN <= 22
+  medium = full_data$B1SORIEN >= 23 & full_data$B1SORIEN <= 26
+  high = full_data$B1SORIEN >= 27 & full_data$B1SORIEN <= 30
+  
+  full_data.low = full_data[low,]
+  full_data.medium = full_data[medium,]
+  full_data.high = full_data[high,]
+  
   ### Regular Exercise ###
   
   # Column Percentages for '(1) Yes' and '(2) No'

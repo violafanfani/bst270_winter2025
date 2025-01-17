@@ -1,8 +1,8 @@
 ---
 title: "group_midus"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 editor_options: 
   markdown: 
     wrap: 72
@@ -88,6 +88,9 @@ library(dplyr)
 library(tidyverse)
 library(ggplot2)
 library(DT)
+#install.packages("gtsummary")
+
+library(gtsummary)
 ```
 
 We are trying to keep all functions well documented. This command allows
