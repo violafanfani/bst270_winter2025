@@ -260,8 +260,23 @@ chunks, based on the lipid/confounder/pathway groups.
 
 ### Confounder
 ```{r}
+
+truncate_decimal <- function(x, digits) {
+  factor <- 10^digits
+  ifelse(x >= 0, floor(x * factor) / factor, ceiling(x * factor) / factor)
+}
+
+# generate table 1
+
+
+source("pathway_tableone.R")
+pathway_tableone(full_data)
+exercise_tbl(full_data)
+
+
 source("generate_table1_confounding.R")
 generate_confounding_table1(full_data)
+```
 
 ```{r}
 # generate table 1 based on the lipid variables
@@ -325,5 +340,6 @@ results_df <- results_df %>%
                             TRUE ~ as.character(round(p, 2))))
 
 knitr::kable(results_df)
+
 ```
 
