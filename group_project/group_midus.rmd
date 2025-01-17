@@ -208,8 +208,7 @@ temp_data <- inner_join(data_after_optimism_filtering,
 print(dim(temp_data))
 ```
 
-
-Here we are left with 977 individuals
+Here we are left with 996 individuals
 
 Let's keep only the columns of interest
 
@@ -250,6 +249,8 @@ chunks, based on the lipid/confounder/pathway groups.
 
 ```{r}
 # generate table 1
+source("table1.R")
+figure1(full_data) #print histogram
 ```
 
 ## Table 2
