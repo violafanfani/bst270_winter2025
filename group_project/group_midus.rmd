@@ -209,15 +209,8 @@ chunks, based on the lipid/confounder/pathway groups.
 ```{r}
 # generate table 1
 
-library(tableone)
-full_data$optimism = ifelse(full_data$B1SORIEN >= 6 & full_data$B1SORIEN <= 22, "low", 
-                      ifelse(medium, "medium", 
-                      ifelse(high, "high", NA)))
-
-full_data$drinks_per_day = as.numeric(full_data$drinks_per_day)
-
-display = c("drinks_per_day", "smoking_status")
-tab <- CreateTableOne(vars = display, data = full_data, strata = "optimism", includeNA = TRUE)
-kableone(tab)
+source("pathway_tableone.R")
+pathway_tableone(full_data)
+exercise_tbl(full_data)
 
 ```
