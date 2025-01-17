@@ -23,4 +23,4 @@ table_1_lipid<-function(df){
     modify_spanning_header(all_stat_cols() ~"**Optimism**") #adds spanning header
     return(table_1)
 }
-table_1_lipid(full_data)
+
