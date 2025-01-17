@@ -326,5 +326,5 @@ knitr::kable(results_df)
 ```{r}
 #Filter data for table 5
 source("lipid_risk.R")
-Filter_lipids(data) 
+Filter_lipids_bad(data) 
 ```
