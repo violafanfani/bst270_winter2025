@@ -238,10 +238,20 @@ middle tertile of optimism (23 to 26), and white, highest tertile of
 optimism (27 to 30)
 
 ```{r}
+mean(full_data$B1SORIEN)
+sd(full_data$B1SORIEN)
+```
+
+We get mean (24.008 +- 4.69), so the mean is slightly higher, but the SD is comparable.
+Tertiles: 22 and 27 so we probably have fewer patients with lower optimism score.
+
+```{r}
 #generate figure 1
 source("figure1.R")
 figure1(full_data) #print histogram
 ```
+
+
 
 ## Table 1
 
