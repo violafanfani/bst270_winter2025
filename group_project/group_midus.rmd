@@ -207,10 +207,17 @@ We then proceed to reproduce table 1. We are gonna split it in different
 chunks, based on the lipid/confounder/pathway groups.
 
 ```{r}
+truncate_decimal <- function(x, digits) {
+  factor <- 10^digits
+  ifelse(x >= 0, floor(x * factor) / factor, ceiling(x * factor) / factor)
+}
+
 # generate table 1
+
 
 source("pathway_tableone.R")
 pathway_tableone(full_data)
 exercise_tbl(full_data)
+
 
 ```
