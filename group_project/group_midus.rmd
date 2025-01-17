@@ -321,3 +321,10 @@ results_df <- results_df %>%
 knitr::kable(results_df)
 ```
 
+## Table 5
+
+```{r}
+#Filter data for table 5
+source("lipid_risk.R")
+Filter_lipids(data) 
+```
