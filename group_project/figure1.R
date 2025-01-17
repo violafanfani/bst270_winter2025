@@ -3,8 +3,7 @@
 figure1 <- function(Df){
   #bars are colored based on low, medium, and high values
   Df$colors <- cut(Df$B1SORIEN, breaks = c(-Inf, 
-                                           as.vector(quantile(Df$B1SORIEN, probs = c(0.33, 0.66))),
-                                           Inf), labels = c("Low", "Med", "High"))
+                                           22,26, Inf), labels = c("Low", "Med", "High"))
   Df$colors <- factor(Df$colors, levels = c("Low", "Med", "High"))
   print(table(Df$colors))
   #generate histogram for optimism score values 

@@ -208,8 +208,7 @@ temp_data <- inner_join(data_after_optimism_filtering,
 print(dim(temp_data))
 ```
 
-
-Here we are left with 977 individuals
+Here we are left with 996 individuals
 
 Let's keep only the columns of interest
 
@@ -259,7 +258,9 @@ We then proceed to reproduce table 1. We are gonna split it in different
 chunks, based on the lipid/confounder/pathway groups.
 
 ```{r}
-# generate table 1
+# generate table 1 based on the lipid variables
+source("table_1_lipid.R")
+table_1_lipid(full_data)
 ```
 
 ## Table 2
