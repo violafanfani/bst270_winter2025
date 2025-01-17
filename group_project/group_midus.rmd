@@ -248,6 +248,7 @@ Tertiles: 22 and 27 so we probably have fewer patients with lower optimism score
 #generate figure 1
 source("figure1.R")
 figure1(full_data) #print histogram
+
 ```
 
 
@@ -256,6 +257,11 @@ figure1(full_data) #print histogram
 
 We then proceed to reproduce table 1. We are gonna split it in different
 chunks, based on the lipid/confounder/pathway groups.
+
+### Confounder
+```{r}
+source("generate_table1_confounding.R")
+generate_confounding_table1(full_data)
 
 ```{r}
 # generate table 1 based on the lipid variables
