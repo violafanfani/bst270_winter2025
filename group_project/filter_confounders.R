@@ -31,7 +31,7 @@ Filter_confounders = function(Df){
   ## B1PA24 Yes/Suspects -> look at B1PA24B answer; else=no
   ## B1PA24B should be used instead of B1PA24C (too much missing values)
   Df$BPmed <- Df$B1PA24B
-  Df$BPmed <- ifelse(is.na(Df$BPmed) & Df$B1PA24 == '(2) No', '(2) No', Df$BPmed)
+  Df$BPmed <- ifelse(is.na(Df$BPmed) & Df$B1PA24 == '(2) No', 2, Df$BPmed)
   Df = Df[!is.na(Df$BPmed),]
   
   ## outputting a data frame called confounder_columns
